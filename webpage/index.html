@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple SPA</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      .navbar {
+        background-color: #494949;
+        padding: 15px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .navbar a {
+        margin: 0 10px;
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .page {
+        display: none;
+        padding: 50px;
+        text-align: center;
+      }
+
+      .active {
+        display: block;
+      }
+
+      .content img {
+        max-width: 50%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .favorite li {
+        list-style: none;
+        color: gray;
+      }
+
+      pre {
+        font-size: large;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+    <script>
+      function navigate(pageId) {
+        // 모든 페이지 비활성화
+        const pages = document.querySelectorAll(".page");
+        pages.forEach((page) => {
+          page.classList.remove("active");
+        });
+
+        // 선택한 페이지 활성화
+        const selectedPage = document.getElementById(pageId);
+        selectedPage.classList.add("active");
+      }
+
+      // 초기 페이지 설정
+      function initialize() {
+        // URL의 해시 값 추출
+        const hash = window.location.hash.substr(1);
+
+        // 해시 값이 존재하는 경우 해당 페이지로 이동
+        if (hash) {
+          navigate(hash);
+        } else {
+          // 해시 값이 없는 경우 첫 번째 페이지로 이동
+          const firstPage = document.getElementById("page1");
+          firstPage.classList.add("active");
+        }
+      }
+
+      // 페이지 로드 시 초기화 함수 호출
+      window.addEventListener("load", initialize);
+      // 앵커 클릭 시 페이지 이동 처리
+      window.addEventListener("hashchange", function (event) {
+        const hash = event.newURL.split("#")[1];
+        navigate(hash);
+      });
+
+      //애니메이션
+      window.onload = function () {
+        const imageRootPath = "./animation/";
+        var count = 0;
+        const image = document.getElementById("image");
+        var frames = [
+          "1.jpg",
+          "2.jpg",
+          "3.jpg",
+          "4.jpg",
+          "5.jpg",
+          "6.jpg",
+          "7.jpg",
+          "8.jpg",
+          "9.jpg",
+          "10.jpg",
+          "11.jpg",
+          "12.jpg",
+          "13.jpg",
+          "14.jpg",
+          "15.jpg",
+          "16.jpg",
+        ];
+
+        setInterval(function () {
+          image.src = imageRootPath + frames[count % frames.length];
+          count++;
+        }, 1000 / 20);
+      };
+    </script>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="#page1">소개</a>
+      <a href="#page2">학교</a>
+      <a href="#page3">노가다</a>
+    </div>
+    <div id="page1" class="page active">
+      <h1>소개</h1>
+      <hr />
+      <h2>윤채원</h2>
+      <div class="content">
+        <img src="profile.jpg" />
+      </div>
+      <pre>
+        저는 강원대학교 컴퓨터공학과의 재학생 윤채원입니다. 22학번입니다.
+        분명히 컴퓨터가 좋아서 컴공과로 왔는데 컴퓨터가 싫어지고 있습니다.
+        하지만 그래도 저같은 아싸에게 컴퓨터만한 친구가 없습니다.
+        ....할 말이 많았으면 좋겠습니다.
+        왜 Lorem ipsum을 아무 때나 쓰는지 지금에서야 알 것 같아요.
+        애국가를 차마 쓸 수는 없었지만 쓸 말이 이렇게나 없을 줄이야...
+        교수님이 제발 이 글을 안 읽으셨으면 좋겠습니다, 그냥 Lorem과 다를 바가
+        없는 글이니까요..
+      </pre>
+      <hr />
+      <ul class="favorite">
+        <h3>좋아하는 것</h3>
+        <li>독서</li>
+        <li>침대</li>
+        <li>달콤한 것</li>
+        <li>노는 게 제일 좋아</li>
+        <li><del>컴퓨터</del></li>
+      </ul>
+    </div>
+    <div id="page2" class="page">
+      <h1>학교</h1>
+      <hr />
+      <h3>강원대학교</h3>
+      <div class="content">
+        <img src="knu1.jpg" />
+      </div>
+      <pre>
+        강원대학교는 국립대학교입니다.
+        강원도 춘천시 강원대학길1에 위치하고 있습니다.
+        교훈은 '실사구시(實事求是)'입니다.
+        슬로건은 '나의 꿈이 현실이 되는 강원대학교'이며,
+        대표하는 동물은 곰입니다, 귀여운 '곰두리'라는 캐릭터가 있습니다.
+        교훈, 교화, 교목이라면 동물은 교에다가 무엇을 붙이는 걸까요?
+        한 한자가 (獸) 떠오르는데, 다른 한자가 있을 겁니다.
+        춘천캠퍼스는 1947년 6월 14일에 설립되었습니다.
+      </pre>
+    </div>
+    <div id="page3" class="page">
+      <h1>애니메이션</h1>
+      <br />
+      <h3>말이 달리는 애니메이션</h3>
+      <p>
+        세 번째 페이지를 채울 수가 없어서 그냥 스톱 모션 애니메이션을
+        만들었습니다.<br />
+        배웠던 것 중에서 가장 재미있었던 부분이었기 때문입니다. <br />
+        하지만 스톱 모션 사진 zip을 구하는 것은 쉽지 않았고, 결국 일일이
+        잘라냈습니다.<br />
+        노가다의 산물이지만 뿌듯합니다.
+      </p>
+      <div class="content">
+        <img id="image" />
+      </div>
+    </div>
+  </body>
+</html>
